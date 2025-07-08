@@ -1,0 +1,2 @@
+Tot. Loans: Jan;Tot. Loans: Feb;Tot. Loans: Mar;Tot. Loans: Apr;Tot. Loans: May;Tot. Loans: Jun;Tot. Loans: Jul;Tot. Loans: Aug;Tot. Loans: Sep;Tot. Loans: Oct;Tot. Loans: Nov;Tot. Loans: Dec
+181;164;139;138;172;137;156;128;100;104;80;119

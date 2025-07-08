@@ -1,0 +1,2 @@
+Tot. Loans: Jan, Tot. Loans: Feb, Tot. Loans: Mar, Tot. Loans: Apr, Tot. Loans: May
+181, 164, 139, 138, 172
