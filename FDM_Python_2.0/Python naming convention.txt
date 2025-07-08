@@ -1,0 +1,2 @@
+Python naming convention:
+https://namingconvention.org/python/
