@@ -1,0 +1,347 @@
+Last login: Mon Jun 27 21:53:30 on console
+-bash: ee: command not found
+(base) ovandoworkbook:~ apple$ ssh ovando.carter@unixemea.fdmgroup.com
+  ______ _____  __  __    _____ _____   ____  _    _ _____  
+ |  ____|  __ \|  \/  |  / ____|  __ \ / __ \| |  | |  __ \ 
+ | |__  | |  | | \  / | | |  __| |__) | |  | | |  | | |__) |
+ |  __| | |  | | |\/| | | | |_ |  _  /| |  | | |  | |  ___/ 
+ | |    | |__| | |  | | | |__| | | \ \| |__| | |__| | |     
+ |_|    |_____/|_|  |_|  \_____|_|  \_\\____/ \____/|_|     
+                                                            
+                                                            
+Authorised access only.
+
+Password:
+unxazu01:~$ pwd
+/home/local/FDMGROUP/ovando.carter
+unxazu01:~$ cd
+unxazu01:~$ ls
+unxazu01:~$ pwd
+/home/local/FDMGROUP/ovando.carter
+unxazu01:~$ mkdir tradingSystem
+unxazu01:~$ ls
+tradingSystem
+unxazu01:~$ cd tradingSystem/
+unxazu01:~/tradingSystem$ touch countries places
+unxazu01:~/tradingSystem$ ls
+countries  places
+unxazu01:~/tradingSystem$ mv countries ~/tradingSystem/
+mv: 'countries' and '/home/local/FDMGROUP/ovando.carter/tradingSystem/countries' are the same file
+unxazu01:~/tradingSystem$ mv countries ~/tradingSystem
+mv: 'countries' and '/home/local/FDMGROUP/ovando.carter/tradingSystem/countries' are the same file
+unxazu01:~/tradingSystem$ ls
+countries  places
+unxazu01:~/tradingSystem$ mv countries /tradingSystem
+mv: cannot create regular file '/tradingSystem': Permission denied
+unxazu01:~/tradingSystem$ ls
+countries  places
+unxazu01:~/tradingSystem$ cd ..
+unxazu01:~$ ls
+tradingSystem
+unxazu01:~$ cd tradingSystem/
+unxazu01:~/tradingSystem$ ls
+countries  places
+unxazu01:~/tradingSystem$ pwd
+/home/local/FDMGROUP/ovando.carter/tradingSystem
+unxazu01:~/tradingSystem$ mv countries /home/local/FDMGROUP/ovando.carter/tradingSystem
+mv: 'countries' and '/home/local/FDMGROUP/ovando.carter/tradingSystem/countries' are the same file
+unxazu01:~/tradingSystem$ mv countries ../tradingSystem
+mv: 'countries' and '../tradingSystem/countries' are the same file
+unxazu01:~/tradingSystem$ mv countries ~
+unxazu01:~/tradingSystem$ cd
+unxazu01:~$ ls
+countries  tradingSystem
+unxazu01:~$ mv countries ~/tradingSystem/
+unxazu01:~$ ls
+tradingSystem
+unxazu01:~$ cd tradingSystem/
+unxazu01:~/tradingSystem$ ls
+countries  places
+unxazu01:~/tradingSystem$ mv places ~
+unxazu01:~/tradingSystem$ ls
+countries
+unxazu01:~/tradingSystem$ cd
+unxazu01:~$ ls
+places  tradingSystem
+unxazu01:~$ mv places cities tradingSystem/
+mv: cannot stat 'cities': No such file or directory
+unxazu01:~$ mv places cities
+mv: cannot stat 'places': No such file or directory
+unxazu01:~$ mv places cities
+mv: cannot stat 'places': No such file or directory
+unxazu01:~$ ls
+tradingSystem
+unxazu01:~$ cd tradingSystem/
+unxazu01:~/tradingSystem$ ls
+countries  places
+unxazu01:~/tradingSystem$ mv places cities
+unxazu01:~/tradingSystem$ ls
+cities  countries
+unxazu01:~/tradingSystem$ cp cities ~
+unxazu01:~/tradingSystem$ cd
+unxazu01:~$ ls
+cities  tradingSystem
+unxazu01:~$ cd tradingSystem/
+unxazu01:~/tradingSystem$ ls
+cities  countries
+unxazu01:~/tradingSystem$ cd
+unxazu01:~$ touch myProgram
+unxazu01:~$ 
+unxazu01:~$ ls
+cities  myProgram  tradingSystem
+unxazu01:~$ ls -l myProgram 
+-rw-r--r-- 1 FDMGROUP\ovando.carter FDMGROUP\domain^users 0 Jun 27 22:16 myProgram
+unxazu01:~$ chmod -rwxr-x--x myProgram 
+unxazu01:~$ ls -l myProgram 
+---------- 1 FDMGROUP\ovando.carter FDMGROUP\domain^users 0 Jun 27 22:16 myProgram
+unxazu01:~$ chmod u=rwx,g=rwx,o=rwx myProgram 
+unxazu01:~$ ls -l myProgram 
+-rwxrwxrwx 1 FDMGROUP\ovando.carter FDMGROUP\domain^users 0 Jun 27 22:16 myProgram
+unxazu01:~$ chmod u=rwx,g=r-x,o=--x myProgram 
+unxazu01:~$ ls -l myProgram 
+-rwxr----- 1 FDMGROUP\ovando.carter FDMGROUP\domain^users 0 Jun 27 22:16 myProgram
+unxazu01:~$ date
+Mon Jun 27 22:39:51 UTC 2022
+unxazu01:~$ 
+unxazu01:~$ date myProgram 
+date: invalid date ‘myProgram’
+unxazu01:~$ pwd
+/home/local/FDMGROUP/ovando.carter
+unxazu01:~$ ls
+cities  myProgram  tradingSystem
+unxazu01:~$ stat myProgram 
+  File: myProgram
+  Size: 0         	Blocks: 0          IO Block: 4096   regular empty file
+Device: 801h/2049d	Inode: 1419870     Links: 1
+Access: (0740/-rwxr-----)  Uid: (860971984/FDMGROUP\ovando.carter)   Gid: (860881409/FDMGROUP\domain^users)
+Access: 2022-06-27 22:16:37.243316685 +0000
+Modify: 2022-06-27 22:16:37.243316685 +0000
+Change: 2022-06-27 22:29:01.472350127 +0000
+ Birth: -
+unxazu01:~$ mkdir temp
+unxazu01:~$ ls
+cities  myProgram  temp  tradingSystem
+unxazu01:~$ cp myProgram ~/temp
+unxazu01:~$ cd temp
+unxazu01:~/temp$ ls
+myProgram
+unxazu01:~/temp$ cd ..
+unxazu01:~$ rm temp
+rm: cannot remove 'temp': Is a directory
+unxazu01:~$ rm -r temp
+unxazu01:~$ ls
+cities  myProgram  tradingSystem
+unxazu01:~$ file /etc/hosts
+/etc/hosts: ASCII text
+unxazu01:~$ file /dev/fd/0
+/dev/fd/0: symbolic link to /dev/pts/2
+unxazu01:~$ file /dev/tty0
+/dev/tty0: character special (4/0)
+unxazu01:~$ file bin/touch
+bin/touch: cannot open `bin/touch' (No such file or directory)
+unxazu01:~$ file /bin/touch
+/bin/touch: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, for GNU/Linux 3.2.0, BuildID[sha1]=788ca30f103a97f230adfaa558210b6df09cb7c8, stripped
+unxazu01:~$ cd ~/student_files
+-bash: cd: /home/local/FDMGROUP/ovando.carter/student_files: No such file or directory
+unxazu01:~$ cd /student_files
+unxazu01:/student_files$ pwd
+/student_files
+unxazu01:/student_files$ ls
+awkPasswd            companies.dat  day2        sedAndAwkFile     stockExchanges.dat   uniqFile
+broker_exchange.dat  currency.dat   passwd      shareHolders.dat  trades.dat
+brokers.dat          day1           places.dat  shares.dat        transactionType.dat
+unxazu01:/student_files$ cp day1 day2 ~
+cp: -r not specified; omitting directory 'day1'
+cp: -r not specified; omitting directory 'day2'
+unxazu01:/student_files$ lw
+lw: command not found
+unxazu01:/student_files$ ls
+awkPasswd            companies.dat  day2        sedAndAwkFile     stockExchanges.dat   uniqFile
+broker_exchange.dat  currency.dat   passwd      shareHolders.dat  trades.dat
+brokers.dat          day1           places.dat  shares.dat        transactionType.dat
+unxazu01:/student_files$ cd
+unxazu01:~$ ls
+cities  myProgram  tradingSystem
+unxazu01:~$ cd student_files
+-bash: cd: student_files: No such file or directory
+unxazu01:~$ cd /student_files
+unxazu01:/student_files$ ls
+awkPasswd            companies.dat  day2        sedAndAwkFile     stockExchanges.dat   uniqFile
+broker_exchange.dat  currency.dat   passwd      shareHolders.dat  trades.dat
+brokers.dat          day1           places.dat  shares.dat        transactionType.dat
+unxazu01:/student_files$ cp day1 ~
+cp: -r not specified; omitting directory 'day1'
+unxazu01:/student_files$ cp day1 ~/
+cp: -r not specified; omitting directory 'day1'
+unxazu01:/student_files$ cp day1 day1.1
+cp: -r not specified; omitting directory 'day1'
+unxazu01:/student_files$ packet_write_wait: Connection to 51.104.208.78 port 22: Broken pipe
+(base) ovandoworkbook:~ apple$ ls
+4DFenrus				edb_mtk.app.zip
+4dcups					edb_npgsql.app.zip
+Applications				edb_pem_sqlprofiler_pg13.app.zip
+Desktop					edb_pgagent_pg13.app.zip
+Documents				edb_pgbouncer.app.zip
+Downloads				edb_pgjdbc.app.zip
+FDM_DB_Server.sql			edb_postgis_3_0_pg13.app.zip
+HTML-1.html				edb_psqlodbc.app.zip
+HTML-2.html				edb_slony_i_pg13.app.zip
+Inheritance.py				edb_sqlprotect_pg13.app.zip
+Library					emoCon.js
+Movies					fashion_blog.html
+Music					flex2.css
+Ovando_Playing_HTML.html		miktex-console.lock
+Pictures				node-easy-notes-app
+Playlist.css				node-easy-notes-app-mongo_2_4D_version
+Playlist.js				node_modules
+Postman					nuxt-tutorial-app
+Public					opt
+Tracklist.css				package-lock.json
+add_numbers.go				postgresql_10.app.zip
+bash.sh					postgresql_11.app.zip
+bin					postgresql_12.app.zip
+compose-demo				postgresql_13.app.zip
+createNewArray-Long.js			postgresql_96.app.zip
+edb_languagepack.app.zip		tweakAnElement.html
+(base) ovandoworkbook:~ apple$ ssh ovando.carter@unixemea.fdmgroup.com
+  ______ _____  __  __    _____ _____   ____  _    _ _____  
+ |  ____|  __ \|  \/  |  / ____|  __ \ / __ \| |  | |  __ \ 
+ | |__  | |  | | \  / | | |  __| |__) | |  | | |  | | |__) |
+ |  __| | |  | | |\/| | | | |_ |  _  /| |  | | |  | |  ___/ 
+ | |    | |__| | |  | | | |__| | | \ \| |__| | |__| | |     
+ |_|    |_____/|_|  |_|  \_____|_|  \_\\____/ \____/|_|     
+                                                            
+                                                            
+Authorised access only.
+
+Password:
+unxazu01:~$ ls
+cities  myProgram  tradingSystem
+unxazu01:~$ cd ~/student_files
+-bash: cd: /home/local/FDMGROUP/ovando.carter/student_files: No such file or directory
+unxazu01:~$ cd /student_files
+unxazu01:/student_files$ pwd
+/student_files
+unxazu01:/student_files$ ls
+awkPasswd            companies.dat  day2        sedAndAwkFile     stockExchanges.dat   uniqFile
+broker_exchange.dat  currency.dat   passwd      shareHolders.dat  trades.dat
+brokers.dat          day1           places.dat  shares.dat        transactionType.dat
+unxazu01:/student_files$ cp day1 day1Copy
+cp: -r not specified; omitting directory 'day1'
+unxazu01:/student_files$ man cp
+
+[1]+  Stopped                 man cp
+unxazu01:/student_files$ cp -r  day1 day1Copy
+cp: cannot create directory 'day1Copy': Permission denied
+unxazu01:/student_files$ ls
+awkPasswd            companies.dat  day2        sedAndAwkFile     stockExchanges.dat   uniqFile
+broker_exchange.dat  currency.dat   passwd      shareHolders.dat  trades.dat
+brokers.dat          day1           places.dat  shares.dat        transactionType.dat
+unxazu01:/student_files$ cd
+unxazu01:~$ ls
+cities  myProgram  tradingSystem
+unxazu01:~$ chmod -rwxr-x--x myProgram 
+unxazu01:~$ ls -l myProgram 
+---------- 1 FDMGROUP\ovando.carter FDMGROUP\domain^users 0 Jun 27 22:16 myProgram
+unxazu01:~$ cd /student_files
+unxazu01:/student_files$ cp -r day1 day2 ~
+unxazu01:/student_files$ cd
+unxazu01:~$ ls
+cities  day1  day2  myProgram  tradingSystem
+unxazu01:~$ cd tradingSystem/
+unxazu01:~/tradingSystem$ ls
+cities  countries
+unxazu01:~/tradingSystem$ cp /student_files/places.dat tradingSystem
+unxazu01:~/tradingSystem$ ls
+cities  countries  tradingSystem
+unxazu01:~/tradingSystem$ cp /student_files/companies.dat tradingSystem
+unxazu01:~/tradingSystem$ ls
+cities  countries  tradingSystem
+unxazu01:~/tradingSystem$ cp /student_files/trades.dat tradingSystem
+unxazu01:~/tradingSystem$ cp /student_files/trades.dat trades.dat tradingSystem
+cp: target 'tradingSystem' is not a directory
+unxazu01:~/tradingSystem$ ls
+cities  countries  tradingSystem
+unxazu01:~/tradingSystem$ rm tradingSystem 
+unxazu01:~/tradingSystem$ ls
+cities  countries
+unxazu01:~/tradingSystem$ cp /student_files/trades.dat trades.dat
+unxazu01:~/tradingSystem$ ls
+cities  countries  trades.dat
+unxazu01:~/tradingSystem$ cp /student_files/companies.dat companies.dat
+unxazu01:~/tradingSystem$ cp /student_files/places.dat places.dat
+unxazu01:~/tradingSystem$ ls
+cities  companies.dat  countries  places.dat  trades.dat
+unxazu01:~/tradingSystem$ ls -a
+.  ..  cities  companies.dat  countries  places.dat  trades.dat
+unxazu01:~/tradingSystem$ ls -laS
+total 20
+drwxr-xr-x 2 FDMGROUP\ovando.carter FDMGROUP\domain^users 4096 Jun 28 07:46 .
+drwxr-xr-x 7 FDMGROUP\ovando.carter FDMGROUP\domain^users 4096 Jun 28 07:40 ..
+-rwxr-xr-x 1 FDMGROUP\ovando.carter FDMGROUP\domain^users  828 Jun 28 07:45 trades.dat
+-rwxr-xr-x 1 FDMGROUP\ovando.carter FDMGROUP\domain^users  150 Jun 28 07:46 places.dat
+-rwxr-xr-x 1 FDMGROUP\ovando.carter FDMGROUP\domain^users  146 Jun 28 07:46 companies.dat
+-rw-r--r-- 1 FDMGROUP\ovando.carter FDMGROUP\domain^users    0 Jun 27 21:58 cities
+-rw-r--r-- 1 FDMGROUP\ovando.carter FDMGROUP\domain^users    0 Jun 27 21:58 countries
+unxazu01:~/tradingSystem$ ls -S
+trades.dat  places.dat  companies.dat  cities  countries
+unxazu01:~/tradingSystem$ cat places.dat
+id city country
+1:London:United Kingdom
+2:Paris:France
+3:New York:USA
+4:Tokyo:Japan
+5:Sydney:Australia
+6:Moscow:Russia
+6:Moscow:Russia
+3:New York:USA
+unxazu01:~/tradingSystem$ tail -2 places,dat
+tail: cannot open 'places,dat' for reading: No such file or directory
+unxazu01:~/tradingSystem$ tail -2 places.dat
+6:Moscow:Russia
+3:New York:USA
+unxazu01:~/tradingSystem$ head -5 places.dat
+id city country
+1:London:United Kingdom
+2:Paris:France
+3:New York:USA
+4:Tokyo:Japan
+unxazu01:~/tradingSystem$ ln places.dat location.dat
+
+use ls -i to check if the hard link worked
+
+unxazu01:~/tradingSystem$ ls -s companies.dat companies
+ls: cannot access 'companies': No such file or directory
+4 companies.dat
+unxazu01:~/tradingSystem$ ln -s companies.dat companies
+unxazu01:~/tradingSystem$ ls -li
+total 16
+1436561 -rw-r--r-- 1 FDMGROUP\ovando.carter FDMGROUP\domain^users   0 Jun 27 21:58 cities
+1432089 lrwxrwxrwx 1 FDMGROUP\ovando.carter FDMGROUP\domain^users  13 Jun 28 08:06 companies -> companies.dat
+1437187 -rwxr-xr-x 1 FDMGROUP\ovando.carter FDMGROUP\domain^users 146 Jun 28 07:46 companies.dat
+1436560 -rw-r--r-- 1 FDMGROUP\ovando.carter FDMGROUP\domain^users   0 Jun 27 21:58 countries
+1437189 -rwxr-xr-x 2 FDMGROUP\ovando.carter FDMGROUP\domain^users 150 Jun 28 07:46 location.dat
+1437189 -rwxr-xr-x 2 FDMGROUP\ovando.carter FDMGROUP\domain^users 150 Jun 28 07:46 places.dat
+1437180 -rwxr-xr-x 1 FDMGROUP\ovando.carter FDMGROUP\domain^users 828 Jun 28 07:45 trades.dat
+unxazu01:~/tradingSystem$ ls
+cities     companies.dat  location.dat  trades.dat
+companies  countries      places.dat
+unxazu01:~/tradingSystem$ cp trades.dat trades.bak
+unxazu01:~/tradingSystem$ ls
+cities     companies.dat  location.dat  trades.bak
+companies  countries      places.dat    trades.dat
+unxazu01:~/tradingSystem$ chmod -R000 trades.dat
+chmod: invalid mode: ‘-R000’
+Try 'chmod --help' for more information.
+unxazu01:~/tradingSystem$ chmod -R 000 trades.dat
+
+--- should have used shred trades.dat, then check with cat trades.dat
+
+unxazu01:~/tradingSystem$ nano trades.dat
+unxazu01:~/tradingSystem$ nano trades.bak
+unxazu01:~/tradingSystem$ chmod -R 777 trades.dat
+unxazu01:~/tradingSystem$ nano trades.dat
+Use "fg" to return to nano.
+
+[2]+  Stopped                 nano trades.dat
+unxazu01:~/tradingSystem$ 

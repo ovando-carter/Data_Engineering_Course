@@ -1,0 +1,160 @@
+Last login: Tue Jul 26 20:40:30 on console
+-bash: ee: command not found
+(base) ovandoworkbook:~ apple$ pwd
+/Users/apple
+(base) ovandoworkbook:~ apple$ cd /Users/apple/Documents/systems_automation/program/database 
+(base) ovandoworkbook:database apple$ ls
+company_bankstatement.db	stocks_account.db
+orders_account.db
+(base) ovandoworkbook:database apple$ sqlite3 orders_account.db
+SQLite version 3.31.1 2020-01-27 19:55:54
+Enter ".help" for usage hints.
+sqlite> .tables
+Orders
+sqlite> .headers on
+sqlite> .mode columns
+sqlite> select sum(Total_Paid) from Orders where upper(First_Name) = upper('joe') and upper(Surname) = upper('martin') or upper(First_Name) = upper('sarah') and upper(Surname) = upper('gregory');
+
+
+sum(Total_Paid)
+---------------
+2421.5         
+sqlite> select sum(Total_Paid) from Orders where upper(First_Name) = upper('elisa');
+sum(Total_Paid)
+---------------
+1883.0         
+sqlite> select sum(Total_Paid) from Orders where upper(First_Name) = upper('elisa') between 2021-09-01 and 2020-10-30;
+sum(Total_Paid)
+---------------
+               
+sqlite> select sum(Total_Paid) from Orders where upper(First_Name) = upper('elisa') between 2020-09-01 and 2019-10-30;
+sum(Total_Paid)
+---------------
+               
+sqlite> select sum(Total_Paid) from Orders where upper(First_Name) = upper('elisa') between 2019-10-30 and 2020-09-01;
+sum(Total_Paid)
+---------------
+               
+sqlite> select sum(Total_Paid) from Orders where upper(First_Name) = upper('elisa') between '2019-10-30' and '2020-09-01';
+sum(Total_Paid)
+---------------
+               
+sqlite> select sum(Total_Paid) from Orders where upper(First_Name) = upper('elisa') between '2019-10-30' and '2020-09-01';
+sum(Total_Paid)
+---------------
+               
+sqlite> select sum(Total_Paid) from Orders where upper(First_Name) = upper('elisa') and Date between '2019-10-30' and '2020-09-01';
+sum(Total_Paid)
+---------------
+542.0          
+sqlite> select * from orders where upper(First_Name) = upper('elisa');
+Date        Time_bought  Event_Name                                  Event_ID     First_Name  Surname       Email                         Quantity    Price_Tier  Ticket_Type             Attendee_no  Order_Type  Currency    Total_Paid  Fees_Paid   Eventbrite_Fees  Eventbrite_Payment_Processing  Attendee_Status  Mobile_Phone  Birth_Date  Shipping_Address_1  Shipping_Address_2  Shipping_City  Shipping_County  Shipping_Postcode  Shipping_Country  Billing_Address_1  Billing_Address_2  Billing_City  Billing_State_Province_County  Billing_Postcode  Billing_Country
+----------  -----------  ------------------------------------------  -----------  ----------  ------------  ----------------------------  ----------  ----------  ----------------------  -----------  ----------  ----------  ----------  ----------  ---------------  -----------------------------  ---------------  ------------  ----------  ------------------  ------------------  -------------  ---------------  -----------------  ----------------  -----------------  -----------------  ------------  -----------------------------  ----------------  ---------------
+2018-12-03  21:19:00     LONDON PARKOUR PROJECT - CHRISTMAS PARKOUR  53230202970  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       FREE CHRISTMAS PARKOUR  1081505873   Free Order  GBP         0.0         0.0         0.0              0.0                            Attending                                                                                                                                                                                                                                                                   
+2018-12-22  13:30:35     LONDON PARKOUR PROJECT - FRIDAY YOUTH PARK  53819196666  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       Friday Block Booking (  1090554877   Eventbrite  GBP         36.0        2.96        2.96             0.0                            Attending                                                                                                                                                                                                                                  SE22 8RG          GB             
+2019-02-12  21:33:06     LONDON PARKOUR PROJECT - FRIDAY YOUTH PARK  53819196666  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       Friday Block Booking (  1119897590   Eventbrite  GBP         36.0        2.96        2.96             0.0                            Attending                                                                                                                                                                                                                                  SE22 8RG          GB             
+2019-04-03  11:41:26     LONDON PARKOUR PROJECT - FRIDAY YOUTH PARK  53819196666  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       Friday Block Booking (  1165782588   Eventbrite  GBP         30.0        2.57        2.57             0.0                            Attending                                                                                                                                                                                                                                  SE22 8RG          GB             
+2019-05-24  22:52:05     LONDON PARKOUR PROJECT - FRIDAY YOUTH PARK  53819196666  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       Friday Block Booking (  1214277248   Eventbrite  GBP         42.0        3.36        3.36             0.0                            Attending                                                                                                                                                                                                                                  SE22 8RG          GB             
+2019-04-08  14:01:41     LONDON PAKOUR POJECT @ TNG (Easter Holiday  59918351402  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       9th April - 3:30 - 4:3  1170767189   Free Order  GBP         0.0         0.0         0.0              0.0                            Attending                                                                                                                                                                                                                                                                   
+2019-04-08  14:01:41     LONDON PAKOUR POJECT @ TNG (Easter Holiday  59918351402  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       12th April - 4:00 - 6:  1170767191   Free Order  GBP         0.0         0.0         0.0              0.0                            Attending                                                                                                                                                                                                                                                                   
+2019-04-08  20:23:22     LONDON PAKOUR POJECT @ TNG (Easter Holiday  59918351402  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       9th April - 2:30 - 3:3  1171280408   Free Order  GBP         0.0         0.0         0.0              0.0                            Attending                                                                                                                                                                                                                                                                   
+2019-07-21  13:27:21     LONDON PARKOUR PROJECT - Summer parkour @   66092543577  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       13th Aug 1:00 - 2:00 p  1270181927   Free Order  GBP         0.0         0.0         0.0              0.0                            Attending                                                                                                                                                                                                                                                                   
+2019-07-21  13:27:21     LONDON PARKOUR PROJECT - Summer parkour @   66092543577  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       20th Aug 1:00 - 2:00 p  1270181929   Free Order  GBP         0.0         0.0         0.0              0.0                            Attending                                                                                                                                                                                                                                                                   
+2019-07-21  13:27:21     LONDON PARKOUR PROJECT - Summer parkour @   66092543577  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       22th Aug 1:00 - 2:00 p  1270181931   Free Order  GBP         0.0         0.0         0.0              0.0                            Attending                                                                                                                                                                                                                                                                   
+2019-08-20  20:19:45     LONDON PARKOUR PROJECT - Summer parkour @   66093075167  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       22th Aug 1:00 - 2:00 p  1324659581   Free Order  GBP         0.0         0.0         0.0              0.0                            Attending                                                                                                                                                                                                                                                                   
+2019-08-26  11:00:56     LONDON PARKOUR PROJECT - FRIDAY YOUTH PARK  70480706691  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       Friday 5:30-6:30pm Blo  1335853167   Eventbrite  GBP         42.0        3.86        3.86             0.0                            Attending                                                                                                                                                                                                                                                    GB             
+2019-10-15  06:50:47     LONDON PARKOUR PROJECT - YOUTH PARKOUR AT   76826685685  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       Friday Youth Parkour -  1455536181   Eventbrite  GBP         48.0        4.33        4.33             0.0                            Attending                                                                                                                                                                                                                                                    GB             
+2019-12-18  12:20:29     LONDON PARKOUR PROJECT - YOUTH PARKOUR AT   86669951157  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       Friday Youth Parkour -  1611105631   Eventbrite  GBP         30.0        2.93        2.93             0.0                            Attending                                                                                                                                                                                                                                                    GB             
+2020-02-10  14:13:30     LONDON PARKOUR PROJECT - HALFTERM PARKOUR   93927025261  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       Half Term ticket 19th   1725701937   Free Order  GBP         0.0         0.0         0.0              0.0                            Attending                                                                                                                                                                                                                                                                   
+2020-06-17  09:47:45     Friday Post Lockdown Parkour - London Park  10993617004  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       4 - 5 pm class          1913713390   Free Order  GBP         0.0         0.0         0.0              0.0                            Attending                                                                                                                                                                                                                                                                   
+2020-06-23  20:05:42     Friday Post Lockdown Parkour - London Park  11070392441  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       4 - 5 pm class          1921486518   Eventbrite  GBP         6.0         1.06        1.06             0.0                            Attending                                                                                                                                                                                                                                                                   
+2020-07-01  10:51:22     Friday Post Lockdown Parkour - London Park  11193261145  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       4 - 5 pm class          1930710726   Eventbrite  GBP         18.0        1.99        1.99             0.0                            Attending                                                                                                                                                                                                                                                                   
+2020-07-01  10:51:22     Friday Post Lockdown Parkour - London Park  11193261145  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       4 - 5 pm class          1930710728   Eventbrite  GBP         18.0        1.99        1.99             0.0                            Attending                                                                                                                                                                                                                                                                   
+2020-07-21  17:05:08     Summer Parkour Camp - London Parkour Proje  11326210199  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       10:00 - 13:00 pm class  1955844526   Eventbrite  GBP         36.0        3.4         3.4              0.0                            Attending                                                                                                                                                                                                                                                                   
+2020-07-24  18:56:03     Summer Parkour Camp (week 2) - London Park  11442747967  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       10:00 - 13:00 pm class  1960337692   Eventbrite  GBP         90.0        7.61        7.61             0.0                            Attending                                                                                                                                                                                                                                                                   
+2020-07-31  17:23:05     Summer Parkour Camp (week 3) - London Park  11549823131  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       10:00 am - 1:00 pm cla  1968836073   Eventbrite  GBP         90.0        7.61        7.61             0.0                            Attending                                                                                                                                                                                                                                                                   
+2020-08-11  12:51:53     Summer Parkour Camp (week 4) - London Park  11638474891  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       10:00 am - 1:00 pm cla  1981781229   Eventbrite  GBP         54.0        4.8         4.8              0.0                            Attending                                                                                                                                                                                                                                                                   
+2020-08-13  17:07:50     Summer Parkour Camp (week 5) - London Park  11688574139  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       10:00 am - 1:00 pm cla  1984757311   Eventbrite  GBP         90.0        7.61        7.61             0.0                            Attending                                                                                                                                                                                                                                                                   
+2020-08-21  18:29:59     Summer Parkour Camp (week 6) - London Park  11778827690  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       10:00 am - 1:00 pm cla  1995540179   Eventbrite  GBP         54.0        4.8         4.8              0.0                            Attending                                                                                                                                                                                                                                                                   
+2020-08-29  10:30:50     LONDON PARKOUR PROJECT - YOUTH PARKOUR      11868290476  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       Friday Youth Parkour -  2005736295   Eventbrite  GBP         56.0        4.96        4.96             0.0                            Attending                                                                                                                                                                                                                                                                   
+2020-10-04  11:21:01     Early Autumn Parkour Camp - London Parkour  12380428093  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       1:30 pm - 4:30 pm clas  2060658647   Eventbrite  GBP         120.0       9.95        9.95             0.0                            Attending                                                                                                                                                                                                                                                                   
+2020-10-18  23:20:23     LONDON PARKOUR PROJECT - YOUTH PARKOUR      12571930482  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       Friday Youth Parkour -  2085596215   Eventbrite  GBP         56.0        4.96        4.96             0.0                            Attending                                                                                                                                                                                                                                                                   
+2020-11-30  19:23:04     Parkour Day Camp - London Parkour Project   12832237868  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       Dec 20th (10:30 am - 2  2152595397   Free Order  GBP         0.0         0.0         0.0              0.0                            Attending                                                                                                                                                                                                                                                                   
+2020-12-19  13:11:11     LONDON PARKOUR PROJECT - YOUTH PARKOUR (Bl  13326182269  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       Friday Youth Parkour -  2181145333   Eventbrite  GBP         48.0        4.33        4.33             0.0                            Attending                                                                                                                                                                                                                                                                   
+2020-12-27  12:29:08     New Year Parkour Camp - London Parkour Pro  13347410564  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       10:30 am - 1:30 pm cla  2188072215   Eventbrite  GBP         120.0       9.95        9.95             0.0                            Attending                                                                                                                                                                                                                                                                   
+2021-02-27  12:29:07     LONDON PARKOUR PROJECT - YOUTH PARKOUR (Bl  14342878435  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       Friday Youth Parkour -  2269948123   Eventbrite  GBP         32.0        3.08        3.08             0.0                            Attending                                                                                                                                                                                                                                                                   
+2021-03-19  21:07:30     LONDON PARKOUR PROJECT - YOUTH PARKOUR (Bl  14342878435  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       Saturday Youth Parkour  2308652365   Eventbrite  GBP         24.0        2.46        2.46             0.0                            Attending                                                                                                                                                                                                                                                                   
+2021-03-27  19:32:03     Easter Parkour Camp week 1 - London Parkou  14740259412  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       10:30 am - 1:30 pm cla  2324281127   Eventbrite  GBP         120.0       9.95        9.95             0.0                            Attending                                                                                                                                                                                                                                                                   
+2021-04-12  22:23:00     LONDON PARKOUR PROJECT - YOUTH PARKOUR (Bl  14875320383  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       Friday Elite Parkour -  2352628553   Eventbrite  GBP         48.0        4.33        4.33             0.0                            Attending                                                                                                                                                                                                                                                                   
+2021-04-08  19:07:39     Easter Parkour Camp week 2 - London Parkou  14959092949  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       10:30 am - 1:30 pm cla  2344783007   Eventbrite  GBP         120.0       9.95        9.95             0.0                            Attending                                                                                                                                                                                                                                                                   
+2021-06-06  12:05:50     LONDON PARKOUR PROJECT - YOUTH PARKOUR (Bl  15657871615  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       Wed Youth Parkour - 5:  2455573883   Eventbrite  GBP         56.0        4.96        4.96             0.0                            Attending                                                                                                                                                                                                                                                                   
+2021-05-24  22:30:00     Spring Parkour Camp  - London Parkour Proj  15658058173  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       10:30 am - 1:30 pm cla  2431463197   Eventbrite  GBP         120.0       9.95        9.95             0.0                            Attending                                                                                                                                                                                                                                                                   
+2021-08-22  13:47:51     LONDON PARKOUR PROJECT - YOUTH PARKOUR (BL  16581597504  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       Friday Elite Parkour -  2580944951   Eventbrite  GBP         63.0        5.51        5.51             0.0                            Attending                                                                                                                                                                                                                                                                   
+2021-10-27  21:28:04     LONDON PARKOUR PROJECT - YOUTH PARKOUR (BL  19511758093  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       Friday Elite Parkour -  3072961889   Eventbrite  GBP         63.0        5.51        5.51             0.0                            Attending                                                                                                                                                                                                                                                                   
+2021-12-21  17:30:29     LONDON PARKOUR PROJECT - YOUTH PARKOUR (BL  23046459480  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       Thursday Youth Parkour  3622667369   Eventbrite  GBP         54.0        4.8         4.8              0.0                            Attending                                                                                                                                                                                                                                                                   
+2022-07-25  14:04:34     LONDON PARKOUR PROJECT - YOUTH PARKOUR (BL  38216965873  Elisa       Garcia-Leoni  elisagarcialeoni@yahoo.co.uk  1                       Thursday Youth Parkour  6681397289   Eventbrite  GBP         63.0        5.51        5.51             0.0                            Attending                                                                                                                                                                                                                                                                   
+sqlite> select sum(Total_Paid) from Orders where upper(First_Name) = upper('elisa') between '2019-10-30' and '2020-09-01';
+sum(Total_Paid)
+---------------
+               
+sqlite> select surname from orders where upper(First_Name) = upper('elisa');
+Surname     
+------------
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+Garcia-Leoni
+sqlite> select surname from orders where upper(First_Name) = upper('andrew');
+Surname   
+----------
+Watson    
+Xydeas    
+sqlite> select sum(Total_Paid) from Orders where upper(First_Name) = upper('joe') and upper(Surname) = upper('martin') or upper(First_Name) = upper('sarah') and upper(Surname) = upper('gregory');
+
+sum(Total_Paid)
+---------------
+2421.5         
+sqlite> select sum(Total_Paid) from Orders where upper(First_Name) = upper('joe') and upper(Surname) = upper('martin') or upper(First_Name) = upper('sarah') and upper(Surname) = upper('gregory') between '2019-10-30' and '2020-09-01';
+sum(Total_Paid)
+---------------
+1350.0         
+sqlite> select sum(Total_Paid) from Orders where upper(First_Name) = upper('joe') and upper(Surname) = upper('martin') or upper(First_Name) = upper('sarah') and upper(Surname) = upper('gregory') between '2020-10-30' and '2021-09-01';
