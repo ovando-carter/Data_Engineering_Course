@@ -1,0 +1,54 @@
+Last login: Thu Jul 14 14:30:16 on ttys003
+-bash: ee: command not found
+(base) ovandoworkbook:~ apple$ ssh -p 65413 instructor@ml-lab-f8508751-c3ff-403e-937a-137c66017688.northcentralus.cloudapp.azure.com
+instructor@ml-lab-f8508751-c3ff-403e-937a-137c66017688.northcentralus.cloudapp.azure.com's password: 
+Last login: Thu Jul 14 13:27:04 2022 from 81.145.109.129
+[instructor@ml-refvm-422293 ~]$ sudo -i
+[sudo] password for instructor: 
+[root@ml-refvm-422293 ~]# pwd
+/root
+[root@ml-refvm-422293 ~]# cat /etc/shadow
+root:*LOCK*:14600::::::
+bin:*:18353:0:99999:7:::
+daemon:*:18353:0:99999:7:::
+adm:*:18353:0:99999:7:::
+lp:*:18353:0:99999:7:::
+sync:*:18353:0:99999:7:::
+shutdown:*:18353:0:99999:7:::
+halt:*:18353:0:99999:7:::
+mail:*:18353:0:99999:7:::
+operator:*:18353:0:99999:7:::
+games:*:18353:0:99999:7:::
+ftp:*:18353:0:99999:7:::
+nobody:*:18353:0:99999:7:::
+systemd-network:!!:18437::::::
+dbus:!!:18437::::::
+polkitd:!!:18437::::::
+libstoragemgmt:!!:18437::::::
+sshd:!!:18437::::::
+abrt:!!:18437::::::
+rpc:!!:18437:0:99999:7:::
+tss:!!:18437::::::
+postfix:!!:18437::::::
+chrony:!!:18437::::::
+ntp:!!:18437::::::
+tcpdump:!!:18437::::::
+instructor:$6$Y8ka.quT$gBoWAfhxwhWS6MywJxxVv6SF6YD/xBZpcqMrJIlESMzKOnBYDdA2K5uNBC3.q9hJjr03ksrNMqrJCEP4mNjtE/:19185:0:99999:7:::
+student:$6$zCAhcHwa$ofiMwHhLcaPxN.N4rMygqSQdeidFoXt9jPKaoxA4st3..DKCsCqhWWQtKRBnw.JEJUA0p9A42hGS.HDhRkQRM1:18469:0:99999:7:::
+apache:!!:18469::::::
+archie:$6$vEX5.kzF$oiJbnOPl0UjyraJ7HebrBF6JsJwRhoguzb0uo2UmaD8cz6Q2Twq7Gokavim544yUWi95ZUT5s/7Qlb22ebOry/:18664:0:99999:7:::
+omi:!!:19016::::::
+omsagent:!!:19016::::::
+nxautomation:!!:19016::::::
+alison:$6$H5S1lqwQ$MuXgMoLphowUH95Sc2DMX7Q1ANDJucyDQgjfWtWZKz8ec1OHMwo5byaveGA9ZcWTjJJlZNcYnjU6xymrA4QpJ/:19187:0:99999:7:::
+robert:$6$dlN4UmvS$0oSTg4xa6f2Z4RVyT32mTCUh2V0V5kFay3OsJnoHxezVTTnwn10W9D2JKza1U1FhdKaxfDfOrz9qyUQQYsOQP1:19187:0:99999:7:::
+quentin:$6$H0hYCUMj$HOoijNgu3awnN99SkdpMv8iWY.8cqxSG7nOo4J6.W/pcpZPKaDNyviE52rdBGM75MsWNV4gx7GPUgNI3nvn/50:19187:0:99999:7:::
+jill:$6$9nfPUSZO$qc/XWuF76UKfit/bXu3QNvlHCCSt2odKDJSoGE4nL8fk3LumGQj3grKI2TLbijGdDCa/YF.WTR/i1kZ3AwPD8.:19187:0:99999:7:::
+[root@ml-refvm-422293 ~]# grep 'jill' /etc/passwd
+jill:x:1006:1007::/home/quentin:/bin/bash
+[root@ml-refvm-422293 ~]# usermod -d /home/jill jill
+usermod: user jill is currently used by process 6709
+[root@ml-refvm-422293 ~]# usermod -d /home/jill jill
+[root@ml-refvm-422293 ~]# grep 'jill' /etc/passwd
+jill:x:1006:1007::/home/jill:/bin/bash
+[root@ml-refvm-422293 ~]# 

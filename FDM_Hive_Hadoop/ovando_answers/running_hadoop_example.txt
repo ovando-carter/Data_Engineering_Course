@@ -1,0 +1,150 @@
+https://labs.azure.com/virtualmachines
+
+# connect to azure virtual machine
+ssh -p 60739 fdmuser@ml-lab-7213a6ab-1c7a-4f5d-a08c-dc27813728f7.uksouth.cloudapp.azure.com
+
+# input password: Krishna123!
+
+# will start the hadoop processes
+start-all.sh
+
+# shows the processes running
+jps
+
+# these are the files that are relevant for hadoop
+1664 DataNode
+2146 NodeManager
+1988 ResourceManager
+2504 Jps
+1502 NameNode
+
+
+hdfs dfs -ls
+
+# we need to do it this way to get the files
+# this is the file system that hive/ Hadoop needs to access our file system. 
+hdfs dfs -ls /
+
+#will see
+drwxrwxr-x   - fdmuser supergroup          0 2022-03-22 21:58 /tmp
+drwxr-xr-x   - fdmuser supergroup          0 2022-03-22 21:38 /user
+
+# go to this link: GitHub - taiwaich/diamonds
+# code
+# copy: https://github.com/taiwaich/diamonds.git
+
+mkdir dataengineering
+
+cd dataengineering
+
+mkdir diamonds
+
+cd diamonds
+
+git clone https://github.com/taiwaich/diamonds.git
+
+
+# will show: 
+Cloning into 'diamonds'...
+remote: Enumerating objects: 6, done.
+remote: Counting objects: 100% (6/6), done.
+remote: Compressing objects: 100% (5/5), done.
+remote: Total 6 (delta 0), reused 3 (delta 0), pack-reused 0
+Unpacking objects: 100% (6/6), 695.10 KiB | 472.00 KiB/s, done.
+
+cd diamonds
+
+ls
+
+# will see 
+README.md  diamonds.csv
+
+
+
+
+##
+# will need to make a directory on the hdfs so we can send the diamonds.csv to it.
+hdfs dfs -mkdir /temp
+
+# check if it was made
+hdfs dfs -ls /
+
+# will see
+drwxr-xr-x   - fdmuser supergroup          0 2022-09-06 08:10 /temp
+drwxrwxr-x   - fdmuser supergroup          0 2022-03-22 21:58 /tmp
+drwxr-xr-x   - fdmuser supergroup          0 2022-03-22 21:38 /user
+
+
+
+# move diamonds.csv to the hdfs 
+hdfs dfs -put diamonds.csv /temp
+
+# check to see if the file has been moved over to the hdfs
+hdfs dfs -ls /temp
+
+# go to the home directory
+cd $HOME
+
+# run hive from home directory
+hive
+
+# 
+show databases;
+
+# will see
+OK
+default
+
+#create new database
+create database diamond;
+
+#check that it is there
+show databases;
+
+# will see 
+OK
+default
+diamond
+
+#show tables
+show tables;
+
+# go into the diamond database diamonds
+use diamond;
+
+# create table
+create table diamonds(co int, carat double, cut varchar(20), color varchar(20), clarity varchar(10), depth double, tableis int, price int, x double, y double, z double) row format delimited fields terminated by ',' tblproperties("skip.header.line.count"="1");
+
+
+
+# check if the table has been created
+show tables;
+
+# show the layout of the table
+desc diamonds;
+
+# will see 
+OK
+co                  	int                 	                    
+carat               	double              	                    
+cut                 	varchar(20)         	                    
+color               	varchar(20)         	                    
+clarity             	varchar(10)         	                    
+depth               	double              	                    
+tableis             	int                 	                    
+price               	int                 	                    
+x                   	double              	                    
+y                   	double              	                    
+z                   	double
+
+
+
+#load data
+load data inpath '/temp/diamonds.csv' into table diamonds;
+
+# use sql to look at the data
+select * from diamonds limit 5;
+
+
+
+select * from f.face_daily where dates =  left join twtr_daily.t on t.month(Dates) = o.month(Dates) 

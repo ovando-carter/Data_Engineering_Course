@@ -1,0 +1,345 @@
+#example
+create table diamonds(co int, carat double, cut varchar(20), color varchar(20), clarity varchar(10), depth double, tableis int, price int, x double, y double z double) row format delimited fields terminated by ',' tblproperties("skip.header.line.count"="1");
+
+# exercises
+# get data from 
+https://github.com/taiwaich/stocks
+
+#q1
+create table apple_daily(Dates date, Open double, High double, Low double, Close double, Volume int, Adj_Close double) row format delimited fields terminated by ',' tblproperties("skip.header.line.count"="1");
+
+create table face_daily(Dates date, Open double, High double, Low double, Close double, Volume int, Adj_Close double) row format delimited fields terminated by ',' tblproperties("skip.header.line.count"="1");
+
+create table nasdaq_daily(Dates date, Open double, High double, Low double, Close double, Volume int, Adj_Close double) row format delimited fields terminated by ',' tblproperties("skip.header.line.count"="1");
+
+create table nflx_daily(Dates date, Open double, High double, Low double, Close double, Volume int, Adj_Close double) row format delimited fields terminated by ',' tblproperties("skip.header.line.count"="1");
+
+create table twtr_daily(Dates date, Open double, High double, Low double, Close double, Volume int, Adj_Close double) row format delimited fields terminated by ',' tblproperties("skip.header.line.count"="1");
+
+create table yhoo_daily(Dates date, Open double, High double, Low double, Close double, Volume int, Adj_Close double) row format delimited fields terminated by ',' tblproperties("skip.header.line.count"="1");
+
+
+
+# make new folder for the history_data
+hdfs dfs -mkdir /history_data
+
+# check if it was made
+hdfs dfs -ls /
+
+# move the file to the hdfs
+hdfs dfs -put facebook_daily.csv /history_data
+hdfs dfs -put apple_daily.csv /history_data
+hdfs dfs -put nasdaq_daily.csv /history_data
+hdfs dfs -put netflix_daily.csv /history_data
+hdfs dfs -put twitter_daily.csv /history_data
+hdfs dfs -put yahoo_daily.csv /history_data
+
+load data inpath '/history_data/facebook_daily.csv' into table face_daily;
+load data inpath '/history_data/apple_daily.csv' into table apple_daily;
+load data inpath '/history_data/nasdaq_daily.csv' into table nasdaq_daily;
+load data inpath '/history_data/netflix_daily.csv' into table nflx_daily;
+load data inpath '/history_data/twitter_daily.csv' into table twtr_daily;
+load data inpath '/history_data/yahoo_daily.csv' into table yhoo_daily;
+
+# NB: use the following to bring up the headers in hive
+SET hive.cli.print.header=true;
+
+
+
+#1.2 querying 101:
+#1. How the Highs of apple change over time (The entire data set)
+show databases;
+use apple_daily;
+select High, Dates from apple_daily;
+
+#should see
+OK
+124.059998	2015-07-09
+124.639999	2015-07-08
+126.150002	2015-07-07
+126.230003	2015-07-06
+126.690002	2015-07-02
+126.940002	2015-07-01
+126.120003	2015-06-30
+126.470001	2015-06-29
+127.989998	2015-06-26
+129.199997	2015-06-25
+129.800003	2015-06-24
+127.610001	2015-06-23
+...
+
+#2.	Apple’s stock data for the last 100 days recorded
+# if you check select Dates from apple_dailt; it shows that the last date is 2015... so we can't find the last 100 days
+select Dates from apple_daily where Dates >= date_sub(current_date, 100);
+
+#so i decided to use the last date on the system i.e. 2015-07-09
+select Dates from apple_daily where Dates >= date_sub('2015-07-09', 100);
+
+#3. Apple released the 1st generation IPhone in September 2007, extract the stock data for this month. 
+
+select * from apple_daily where month(Dates) = 9 and year(Dates) = 2007;
+
+#4.	Apple’s earliest recorded stock data is from 1980, extract the data for 1980’s last day of trading.
+# just to check what the anser should be i did 
+select * from apple_daily where month(Dates) = 12 and year(Dates) = 1980;
+
+# this works
+select * from apple_daily where month(Dates) = 12 and year(Dates) = 1980 limit 1;
+
+'''
+# other attempts
+# run this code to allow hive to understand the max() function
+set hive.exec.mode.local.auto=true;
+
+# then run this to show only the max date
+select max(Dates) from apple_daily;
+'''
+
+#5. Steve Jobs joined Apple as CEO in 1977, and left Apple in January 2011, to focus on his health. 
+# Extract the stock data the end of January 2011. 
+# Comment on how the stock price changed under his lead (1980 – 2011)? 
+
+select * from apple_daily where month(Dates) = 1 and year(Dates) = 2011 limit 1;
+
+# last day 1980
+apple_daily.dates	apple_daily.open	apple_daily.high	apple_daily.low	apple_daily.close	apple_daily.volume	apple_daily.adj_close
+1980-12-31			34.25016			34.25016			34.12528		34.12528			8937600				0.522491
+	
+# last day steve jobs: 
+apple_daily.dates	apple_daily.open	apple_daily.high	apple_daily.low	apple_daily.close	apple_daily.volume	apple_daily.adj_close
+2011-01-31			335.800022			340.039986			334.299988		339.320023			94311700			45.533495
+
+# comment: 
+# In most cases the stats have 10x from 1980 to 2011 under Steve Jobs lead.
+# only one that is different is adj_close which is approx. 100x from 1980 ro 2011.
+
+
+#class question
+#How did we digest data?
+# - git clone the data from git hub to the VM
+# - created a folder for the files on hdfs
+# - used -put to put the files into the folder we created on hdfs
+# - created a database, then a table on Hive and then loaded the data onto the Hive table.
+
+
+1.3 Further Querying: 
+subquery
+# 1.
+# run this code to allow hive to understand the max() function
+set hive.exec.mode.local.auto=true;
+
+# check the subquery
+select min(Dates) from apple_daily;
+
+# will see 
+1980-12-12
+
+# test the query
+select * from apple_daily where Dates = '1980-12-12';
+
+# test the full subquery
+select * from apple_daily where Dates = (select min(Dates) from apple_daily);
+
+# 2. 
+# run this code to allow hive to understand the max() function (if you have not already)
+set hive.exec.mode.local.auto=true;
+
+# check the subquery
+select max(Close) from apple_daily;
+
+# will see 
+702.100021
+
+# test the query
+select Dates from apple_daily where Dates = '702.100021';
+
+# test the full subquery
+select Dates, Close from apple_daily where Close = (select max(Close) from apple_daily);
+
+#3. 
+# run this code to allow hive to understand the max() function (if you have not already)
+set hive.exec.mode.local.auto=true;
+
+select Dates from apple_daily where Volume = (select max(Volume) from apple_daily);
+
+#will see: 
+2000-09-29
+
+#4. 
+# the obvious way
+select avg(high) - avg(close) from apple_daily;
+
+# or another way
+select (sum(high - close) / count(close)) as Average_Difference from apple_daily;
+
+#5.
+select count(Volume) from apple_daily where year(Dates) = 2015;
+
+#6.
+select year(Dates) as Year, count(Volume) as Tot_Volume from apple_daily where year(Dates) between '2011' and '2015' group by year(Dates);
+
+
+# 1.4 Querying across datasets:
+
+#1. Retrieve and output to a file Facebook and Twitters stock price data for the calendar year 2015.
+# I think they want us to do a union
+
+set hive.exec.mode.local.auto=true;
+
+select 'fb' as company, * from face_daily where year(dates) = 2015 
+union 
+select 'twtr' as company, * from twtr_daily where year(dates) = 2015;
+
+
+#2. Use a single query to identify the month of the year with the highest volume of trades for each company in 2015?
+
+my answer
+# run this code to allow hive to understand the max() function
+set hive.exec.mode.local.auto=true;
+
+# check the subquery
+select max(volume) from apple_daily where  year(Dates) = 2015 limit 1;
+
+
+# will see
+146477100
+
+# test the query
+select 'fb' as company, * from apple_daily where volume = 146477100;
+
+# insert subquery into main query
+select 'fb' as company, * from apple_daily where volume = (select max(volume) from apple_daily where  year(Dates) = 2015 limit 1);
+
+# will see 
+company	apple_daily.dates	apple_daily.open	apple_daily.high	apple_daily.low	apple_daily.close	apple_daily.volume	apple_daily.adj_close
+fb		2015-01-28			117.629997			118.120003			115.309998		115.309998			146477100			114.378938
+
+
+# copy syntax and run for twitter 
+select 'twtr' as company, * from twtr_daily where volume = (select max(volume) from twtr_daily where  year(Dates) = 2015 limit 1);
+
+
+# will see
+company	twtr_daily.dates	twtr_daily.open	twtr_daily.high	twtr_daily.low	twtr_daily.close	twtr_daily.volume	twtr_daily.adj_close
+twtr	2015-04-29			40.209999		41.09			38.07			38.490002			120488600			38.490002
+
+
+# use union on apple and twitter
+select 'fb' as company, * from apple_daily where volume = (select max(volume) from apple_daily where  year(Dates) = 2015 limit 1)
+union
+select 'twtr' as company, * from twtr_daily where volume = (select max(volume) from twtr_daily where  year(Dates) = 2015 limit 1);
+
+
+tutor answer
+select * from (
+select 'fb' as company, month(Dates), sum(volume), rank() over (order by sum(volume) DESC)rank 
+from face_daily where year(Dates) = 2015 group by month(Dates)) a
+where a.rank = 1
+union
+select * from (
+select 'twtr' as company, month(Dates), sum(volume), rank() over (order by sum(volume) DESC)rank 
+from twtr_daily where year(Dates) = 2015 group by month(Dates)) a
+where a.rank = 1;
+
+#3. Use a single query to identify the month of the year with the lowest volume of trades for each company in 2015?
+SELECT *
+FROM (
+SELECT 'fb' as company, month(Dates), sum(volume) rank() over (order by sum(volume) ASC) rank
+FROM face_daily
+WHERE year(Dates) = 2015
+GROUP BY month(Dates)) a
+WHERE a.rank =1
+UNION
+SELECT *
+FROM (
+SELECT 'twtr' as company, month(Dates), sum(volume) rank() over (order by sum(volume) ASC) rank
+FROM twtr_daily
+WHERE year(Dates) = 2015
+GROUP BY month(Dates)) a
+WHERE a.rank =1;
+
+#4.	Alter your query to output the average volume of trades for each company & month of the year. Order the result set by company, average volume of trades.
+SELECT *
+FROM (
+SELECT 'fb' as company, month(Dates), avg(volume) rank() over (order by avg(volume) DESC) rank
+FROM face_daily
+WHERE year(Dates) = 2015
+GROUP BY month(Dates)) a
+UNION
+SELECT *
+FROM (
+SELECT 'twtr' as company, month(Dates), avg(volume) rank() over (order by avg(volume) DESC) rank
+FROM twtr_daily
+WHERE year(Dates) = 2015
+GROUP BY month(Dates)) a
+ORDER BY company, rank;
+
+#5.	Output question 4’s result set to a file & ensuring the query runs in silent mode
+Hive –S –f ‘insert/path/here’ > queryOutput.txt
+
+OR 
+
+Hive –S –e  'set hive.cli.print.header=true;
+SELECT *
+FROM (
+SELECT 'fb' as company, month(Dates), avg(volume) rank() over (order by avg(volume) DESC) rank
+FROM face_daily
+WHERE year(Dates) = 2015
+GROUP BY month(Dates)) a
+UNION
+SELECT *
+FROM (
+SELECT 'twtr' as company, month(Dates), avg(volume) rank() over (order by avg(volume) DESC) rank
+FROM twtr_daily
+WHERE year(Dates) = 2015
+GROUP BY month(Dates)) a
+ORDER BY company, rank;
+' > queryOutput.txt
+
+#6 how do the two companies differ - can't do 
+
+#7 
+Hive –S –e 'set hive.cli.print.header=true;
+			SELECT *
+			FROM (
+			SELECT 'fb' as company, year(Dates) as year, month(Dates), avg(volume) rank() over (partition by year(Dates) order by avg(volume) DESC) rank FROM face_daily
+			WHERE year(Dates) > 2012
+			GROUP BY year(Dates), month(Dates)) a
+			UNION
+			SELECT *
+			FROM (
+			SELECT 'twtr' as company, year(Dates) as year, month(Dates), avg(volume) rank() over (partition by year(Dates) order by avg(volume) DESC) rank
+			FROM twtr_daily
+			WHERE year(Dates) > 2012
+			GROUP BY year(Dates), month()) a
+			ORDER BY company, year, rank;'
+			> queryOutput.txt
+Select	*,
+	CASE 	WHEN vol > LAG(vol) over(ORDER BY yr, mon)
+		THEN ‘Increase’
+		ELSE ‘Decrease’
+		END
+FROM ( SELECT Month(Dates) AS mon,
+		YEAR(Dates) AS yr,
+		AVG(volume) AS vol
+	FROM apple 
+	WHERE YEAR(Dates) IN (‘2013’,’2014’,’2015’)
+	GROUP BY MONTH(Dates),
+		      YEAR(Dates)
+	)a
+ORDER BY yr,
+	     mon
+UNION for Twitter
+
+
+
+
+
+
+select * from face_daily as f      
+outer join twtr_daily as t on f.year(Dates) = t.year(Dates)
+outer join apple_daily as a on t.year(Dates) = a.year(Dates)
+outer join nasdaq_daily as n on a.year(Dates) = n.year(Dates)
+outer join nflx_daily as x on n.year(Dates) = x.year(Dates)
+outer join yhoo_daily as y on x.year(Dates) = y.year(Dates)
+where year(dates) = 2015;
