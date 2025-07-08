@@ -1,0 +1,3 @@
+-- get dog and cat records
+SELECT * FROM animals WHERE type='dog';
+SELECT * FROM animals WHERE type='cat';

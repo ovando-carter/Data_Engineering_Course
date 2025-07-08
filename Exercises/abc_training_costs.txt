@@ -1,0 +1,47 @@
+Level	Office	Course-type	Recommended	Cost
+Management	Ireland	Technical	No	718
+Non management	Spain	Technical	Yes	661
+Management	Finland	Technical	No	578
+Management	Ireland	Soft skills	Yes	986
+Non management	Germany	Soft skills	Yes	533
+Non management	Finland	Soft skills	No	561
+Non management	France	Soft skills	No	991
+Non management	Ireland	Soft skills	Yes	767
+Management	Spain	Technical	Yes	483
+Non management	Germany	Soft skills	No	408
+Management	Spain	Soft skills	No	806
+Management	Ireland	Technical	No	878
+Management	Ireland	Technical	Yes	951
+Management	France	Soft skills	Yes	373
+Management	Spain	Technical	Yes	643
+Management	France	Soft skills	Yes	566
+Non management	Ireland	Soft skills	No	453
+Management	France	Soft skills	No	572
+Management	Finland	Technical	Yes	811
+Management	Germany	Technical	No	615
+Management	Germany	Technical	No	598
+Management	France	Technical	Yes	796
+Management	Finland	Technical	Yes	825
+Non management	France	Soft skills	Yes	620
+Non management	France	Technical	Yes	538
+Non management	Spain	Technical	Yes	936
+Non management	Ireland	Technical	No	967
+Non management	Germany	Technical	No	669
+Non management	Finland	Soft skills	Yes	762
+Non management	Finland	Technical	No	692
+Non management	Spain	Soft skills	Yes	551
+Non management	Spain	Soft skills	Yes	424
+Non management	France	Technical	No	768
+Management	France	Soft skills	No	788
+Non management	France	Soft skills	Yes	964
+Management	Ireland	Soft skills	Yes	824
+Management	France	Soft skills	No	986
+Management	Germany	Technical	No	597
+Non management	Ireland	Soft skills	No	924
+Management	Spain	Soft skills	Yes	395
+Management	Finland	Soft skills	No	941
+Management	Germany	Soft skills	No	885
+Management	Germany	Technical	No	440
+Management	Finland	Soft skills	Yes	781
+Non management	France	Soft skills	No	691
+Management	France	Soft skills	No	685
