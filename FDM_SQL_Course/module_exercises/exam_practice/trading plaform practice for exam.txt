@@ -1,0 +1,113 @@
+
+For translation 
+
+SELECT share_id,
+        COUNT(broker_id)
+FROM
+    (SELECT DISTINCT
+        share_id, broker_id
+    FROM trades)
+GROUP BY share_id
+HAVING COUNT(broker_id) >2
+ORDER BY COUNT(broker_id);
+
+number of shares bought by two or more brokers
+
+
+
+SELECT DISTINCT city
+FROM places p
+INNER JOIN companies c
+ON c.place_id = p.place_id
+WHERE c.name LIKE'%B%';
+
+If the company has B in the name it will show the city it is in
+
+
+SELECT place_id
+FROM places
+MINUS
+SELECT place_id 
+FROM stock_exchanges;
+
+take away the place_id that are in stock exchanges that are are in places
+
+
+
+
+
+
+SELECT broker_id
+FROM brokers
+WHERE broker_id NOT IN
+( SELECT broker_id 
+  FROM trades
+  WHERE transaction_time > add_months(SYSDATE, -2)
+);
+
+
+lists the brokers that have not made any trades in the last 2 months
+
+
+
+
+Query writing questions
+
+
+
+1.show all trades that have been traded in the last 5 days
+
+select trade_id from trades;
+
+select transaction_time from trades 
+where transaction_time > add_days(SYSDATE, -5);
+
+
+SELECT broker_id, 
+FROM brokers
+WHERE broker_id IN
+( SELECT broker_id 
+  FROM trades
+  WHERE transaction_time > add_days(SYSDATE, -5)
+);
+
+
+2.show the average share_amount for each broker
+
+SELECT
+            round(avg(share_amount),0) AS "lowest average share amount",
+            broker_id
+            share_amount
+FROM        trades t1
+WHERE       share_amount = (SELECT
+                                  min(share_amount)
+                     FROM         trades t2
+                     WHERE        t1.trade_id = t2.trade_id)
+Group by broker_id;
+
+
+3.show the trade_id of the most expensive trade
+
+
+select 
+    trade_id,
+    price_total
+from trades
+    where price_total =(
+select max(price_total) from trades
+);
+
+
+
+4.show the share_id of the share with the largest share_amount 
+for each trade
+
+
+select share_id from trades
+where share_amount = (
+select max(share_amount) from trades
+);
+
+
+
+

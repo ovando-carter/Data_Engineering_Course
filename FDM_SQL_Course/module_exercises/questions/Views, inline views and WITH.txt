@@ -1,0 +1,30 @@
+--using an inline view
+SELECT MAX(times_traded)
+FROM
+(
+SELECT   share_id,
+         COUNT(share_id) AS times_traded
+FROM     trades
+GROUP BY share_id
+);
+
+--using WITH
+WITH No_times_traded AS
+(SELECT   share_id,
+         COUNT(share_id) AS times_traded
+FROM     trades
+GROUP BY share_id
+)
+
+SELECT MAX(times_traded)
+FROM No_times_traded;
+--  with a view
+CREATE OR REPLACE VIEW No_times_traded_vw AS
+(SELECT   share_id,
+         COUNT(share_id) AS times_traded
+FROM     trades
+GROUP BY share_id
+);
+
+SELECT AVG(times_traded)
+FROM No_times_traded_vw;
