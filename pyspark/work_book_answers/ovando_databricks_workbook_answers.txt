@@ -1,0 +1,9 @@
+# Ovando Databricks Answers
+
+https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/4034538166551726/1924984836829522/5722510562859543/latest.html
+
+# instructors solutions
+https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/2325622190871414/286656053492823/6173837054274116/latest.html
+
+# gundit method
+https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/4299085926715354/57155630020829/6315900551593768/latest.html

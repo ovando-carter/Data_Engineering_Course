@@ -1,0 +1,327 @@
+# Using databricks
+
+# sign up and login here
+https://community.cloud.databricks.com/
+
+# word count example
+https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/2325622190871414/3065228375621182/6173837054274116/latest.html
+
+# olympics dataset - get the data from github
+https://github.com/taiwaich/olympics.git
+
+https://github.com/taiwaich/stocks.git
+
+https://github.com/taiwaich/diamonds.git
+
+
+# clone the dataset
+git clone https://github.com/taiwaich/olympics.git
+
+git clone https://github.com/taiwaich/stocks.git
+
+git clone https://github.com/taiwaich/diamonds.git
+
+
+# go to databricks
+
+# on the left side pannel - click compute
+	# create cluser
+	# name the cluster "FDMdata"
+	
+# on the left side pannel - click Data
+	# click create a table
+	# click upload file
+	# drag and drop the files into the window (individually)
+	
+# import worCountExample
+https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/2325622190871414/3065228375621182/6173837054274116/latest.html
+
+
+# click import notebook
+
+#copy URL
+
+# on the left side of databricks pannel - click workspace
+
+	# click the down arrow on the ovando.carter@fdmgroup.com
+	# import
+	# URL
+	# paste the url in the field provided. 
+	# click import
+
+
+# DAY 2
+# can find most of the following code here: https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/2325622190871414/1699807260258919/6173837054274116/latest.html
+
+#Notebook: 1
+# create notebook - called pyspark_beginnings (language: python), choose cluster. 
+
+# open notebook pyspark_beginnings
+
+numbers = sc.parallelize([34, 23, 78, 3, 10, 34, 66, 99, 23, 9, 4, 3, 34])
+
+print(numbers.collect())
+
+# count the numbers
+numbersCount = numbers.count()
+print(numbersCount)
+
+
+# use take order to order this in ascending order
+print(numbers.takeOrdered(numbersCount))
+
+
+# count in descending order
+print(numbers.takeOrdered(numbersCount, key=lambda x:-x))
+
+from operator import add
+orderRdd = numbers.map(lambda x: (x,1))
+print(orderRdd.reduceByKey(add).sortBy(lambda x: -x[0]).collect())
+
+#sort in ascending order use sortByKey(True)
+print(orderRdd.reduceByKey(add).sortByKey(True).collect())
+
+
+print(orderRdd.top(2))
+
+# print the top 2 numbers from the original data
+print(numbers.top(2))
+
+# find the sum of all the numbers
+print(numbers.sum())
+
+# find the mean of all the numbers
+print(numbers.mean())
+
+# find the max of all the numbers
+print(numbers.max())
+
+# find the min of all the numbers
+print(numbers.min())
+
+# find the count of all the numbers
+print(numbers.count())
+
+# print only distinct numbers - remove duplicates
+print(numbers.distinct().collect())
+
+nth = 6
+numbersIs = numbers.take(numbers.count())
+print(numbers.collect())
+print(numbersIs[nth-1])
+
+import random
+
+randnums = [random.randint(0,20) for i in range(1000000)]
+randnumbers = sc.parallelize(randnums)
+# see how many times a number has occured between 0 - 20
+# display in descending order
+foundnumbers = (randnumbers.map(lambda x: (x, 1)).reduceByKey(add).sortBy(lambda x: -x[1]))
+print("number\toccurance")
+
+# gives us the number of times a number has been generated
+for(number, timesgenerated) in foundnumbers.collect():
+	print("%i\t%i" % (occurs, timesgenerated))
+	
+	
+distanceToLondonRDD = sc.parallelize([("Leeds", 190), ("Leicester", 100), ("Glasgow", 410)])
+distanceToManchesterRDD = sc.parallelize([("Leeds", 40), ("Leicester", 130), ("Glasgow", 0)])
+distanceToLeedsRDD = sc.parallelize([("Manchester", 40), ("Leicester", 100), ("Glasgow", 220)])
+
+print("distance to London and Manchester using a join", distanceToLondonRDD.join(distanceToManchesterRDD).collect())
+print("distance to London and Leeds using a  left outerjoin", distanceToLondonRDD.leftOuterJoin(distanceToLeedsRDD).collect())
+print("distance to London and Leeds using a  right outerjoin", distanceToManchesterRDD.rightOuterJoin(distanceToLeedsRDD).collect())
+
+
+#filters
+cityListRdd = sc.parallelize(["Leeds", "Liverpool", "York", "Exeter", "Bath"])
+print(cityListRdd.map(lambda x: len(x)).collect())
+
+print(cityListRdd.filter(lambda x:x[0] != "L").collect())
+
+#print out those that are greater than 5
+print(cityListRdd.filter(lambda c: len(c) > 5).collect())
+
+
+x = sc.parallelize(range(0,5))
+x = sc.parallelize(range(1000,1005))
+print(x.zip(y).collect())
+
+
+def fizzbuzz(numberIs):
+	if numberIs%15 == 0:
+		return("fizzbuz")
+	elif numberIs%3 == 0:
+		return("fizz")
+	elif numberIs%5 == 0:
+		return("buzz")
+	else: 
+		return(" ")
+
+for number in range(100):
+	value = fizzbuzz(number + 1)
+	print("%i\t%s" % (number + 1, value))
+	
+	
+%scala
+var numbers = sc.parallelize(1 to 100)
+val mod3 = numbers.filter(num => num%3 ==0).map(x=> (x,"Fizz"))
+val mod5 = numbers.filter(num => num%5 ==0).map(x=> (x,"Buzz"))
+val other = numbers.filter(num => !(num%5 ==0 || num%3==0)).map(x=> (x,x+""))
+                           
+val combined = mod3.union(mod5).union(other).reduceByKey((s1, s2) => s1+s2)
+                           
+combined.takeOrdered(100).foreach(x => println(x._2))
+
+
+randnums = [random.randint(1,100) for i in range(100)]
+numbers = sc.parallelize(randnums)
+
+rddNumbers = numbers.takeOrdered(numbers.count())
+#print(rddNumbers)
+
+mod3 = numbers.filter(lambda num: num%3 == 0 ).map(lambda x (x, "Fizz"))
+mod5 = numbers.filter(lambda num: num%5 == 0 ).map(lambda x (x, "Buzz"))
+other = numbers.filter(lambda num: (num%5 != 0 | num%3 ! = 0 )).map(lambda x (x, " "))
+combined = mod3.union(mod5).union(other).reduceByKey(lambda s1, s2 : s1 + s2).sortBy(lambda x: x[0])
+
+print(combined.collect())
+
+
+#Notebook: 2
+# can be found here: https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/2325622190871414/1699807260258938/6173837054274116/latest.html
+# create notebook - pysparkWordCount
+
+filename = "/FileStore/tables/henryv.txt"
+fileRDD = sc.textFile(filename)
+ 
+if filename.endswith(".txt"):
+  splitIt=" "
+else:
+  splitIt=","
+  
+fileWordsRDD = fileRDD.flatMap(lambda line : line.split(splitIt))
+#for element in fileWordsRDD.collect():
+#  print(element)
+ 
+def wordCount(wordListRDD):
+  occurance=wordListRDD.map(lambda x: (x,1)).reduceByKey(lambda x, y : x + y)
+  return occurance
+  
+wordsCounter = wordCount(fileWordsRDD)
+ 
+wordsAre= wordsCounter.sortBy(lambda x: -x[1])
+print("Word\t\tNumber of Occurances")
+ 
+for(element, counter) in wordsAre.collect():
+  print("%s\t\t\t%i" % (element, counter))
+  
+print(wordsAre.count()) 
+
+
+
+
+# Notebook: 3 (can filter out the header with this method) 
+# can be found here: https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/2325622190871414/1699807260258940/6173837054274116/latest.html
+
+https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93eaaa8714f173bcfc/2325622190871414/1699807260258940/6173837054274116/latest.html
+
+# create notebook - carDataRDD
+
+fileNmae = "/FileStore/tables/newcar.csv"
+
+split = ","
+
+fileLines = sc.textFile(fileName)
+header = fileLines.first()
+
+print(fileLines.collect())
+
+rawdata = fileLines.filter(lambda x: x!=header)
+
+print(rawdata.count())
+carDataIs = rawdata.take(rawdata.count())
+print(carDataIs)
+
+
+print(header)
+for(rowIs) in carDataIs:
+  print("%s" % (rowIs))
+
+carSplitData = rawdata.map(lambda x : x.split(splitIt))
+ 
+print("Data Split By Delimiter" , carSplitData.collect())
+ 
+print("\n\nMake\tModel\t\tMPG\tCylinders\tEngine_Disp\tHorsepower\tWeight\tAcceleration\tYear\tOrigin")
+for(carData) in carSplitData.collect():
+  print("%s\t%s\t%s\t%s\t\t%s\t\t%s\t\t%s\t%s\t\t%s\t%s" % (carData[0],carData[1],carData[2],carData[3],carData[4],carData[5],carData[6],carData[7],carData[8],carData[9]))
+
+#get all horsepower data
+from functools import reduce
+from operator import add
+ 
+carRows = rawdata.map(lambda x:x.split(splitIt)[5]).map(int)
+print("Horsepower Data\n", carRows.collect())
+ 
+ 
+print("Sum of Horsepower Data: ", reduce(add, carRows.collect()))
+ 
+print(carRows.sum())
+ 
+print("Total of Horsepower : ", carRows.map(lambda x:x).sum(), "hp")
+ 
+print("Average of Horsepower Data {:.2f}".format(reduce(add, carRows.collect())/carRows.count()), "hp")
+print("Average of Horsepower Data {:.2f}".format(carRows.mean()), "hp")
+
+
+#get sum and mean of  weights
+ 
+carRows = rawdata.map(lambda x:x.split(splitIt)[6]).map(int)
+ 
+print("Weight Data\n", carRows.collect())
+print("Sum of Cars Weights: ", carRows.sum(), "kg")
+print("Average of Car Weights: {:.2f}".format(carRows.mean()),"kg")
+
+
+#filter out by weight car weight > 2300
+ 
+filterVal = 2300
+ 
+carWeightIs = carRows.filter(lambda x: int(x[6]) > filterVal)
+ 
+#print(carWeightIs.collect())
+ 
+print("\n\nMake\tModel\t\tMPG\tCylinders\tEngine_Disp\tHorsepower\tWeight\tAcceleration\tYear\tOrigin")
+for(carData) in carWeightIs.collect():
+  print("%s\t%s\t%s\t%s\t\t%s\t\t%s\t\t%s\t%s\t\t%s\t%s" % (carData[0],carData[1],carData[2],carData[3],carData[4],carData[5],carData[6],carData[7],carData[8],carData[9]))
+  
+#filter by origin
+ 
+carOrigin ="European"
+ 
+carRows=rawdata.map(lambda x: x.split(splitIt)).filter(lambda x: x[9]==carOrigin)
+ 
+print("\n\nMake\tModel\t\tYear\tOrigin")
+for(carData) in carRows.collect():
+  print("%s\t%s\t19%s\t%s" % (carData[0],carData[1],carData[8],carData[9]))
+  
+ 
+
+
+
+
+#calculate sum and average of the wieght of the car by it's origin
+originWeightSum = rawdata.map(lambda x: x.split(splitIt)).map(lambda x (x[9], int(x[6])))\
+	.combineByKey(	lambda x: (x, 1),\
+					lambda a, x:(a[0] + x, a[1] + 1), \
+					lambda a, x:(a[0] + x[0], a[1] + x[1]))
+					
+print("Origin\t\tSum Pf Cars weight(kg)\t\tOccurance")
+for(origin, (sumWeight, occurs)) in originWeightSum.collect():
+	print("%s\t\t%i\t\t\t%i" % (origin, sumWeight, occurs))
+	
+originWeightAvg = originWeightSum.map(lambda x: (x[0], (x[1][0]/x[1][1])))
+
+print("\n\nOrigin\t\tAverage Weight(kg)")
+for (origin, mean) in originWeightAvg.collect():
+	print("%s\t\t%f" % (origin, mean))
